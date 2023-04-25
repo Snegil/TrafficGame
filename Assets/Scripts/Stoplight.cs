@@ -30,13 +30,34 @@ public class Stoplight : MonoBehaviour
     [SerializeField]
     Collider2D southEastRight;
 
+    [Space, SerializeField, Header("Stoplight Sprites")]
+    Sprite ewGreen;
+    [SerializeField]
+    Sprite nsGreen;
+
+    Image image;
+
+    [Space, SerializeField, Header("Sound Effect")]
+    AudioClip clip;
+
+    AudioSource audioSrc;
+    private void Start()
+    {
+        image = GetComponent<Image>();
+        audioSrc = GetComponent<AudioSource>();
+    }
     public void FlipStopLight()
     {
+        audioSrc.pitch = Random.Range(0.95f, 1.05f);
+        audioSrc.PlayOneShot(clip);
+
         westEast = !westEast;
         northSouth = !northSouth;
         if (westEast == true)
         {
-            transform.Rotate(0, 0, 90);
+            //transform.Rotate(0, 0, 90);
+
+            image.sprite = ewGreen;
 
             northWestLeft.enabled = true;
             northWestTop.enabled = true;
@@ -50,7 +71,9 @@ public class Stoplight : MonoBehaviour
         }
         if (northSouth == true)
         {
-            transform.Rotate(0, 0, -90);
+            //transform.Rotate(0, 0, -90);
+
+            image.sprite = nsGreen;
 
             northEastRight.enabled = true;
             northEastTop.enabled = true;

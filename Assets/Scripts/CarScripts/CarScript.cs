@@ -16,6 +16,7 @@ public class CarScript : MonoBehaviour
     [SerializeField]
     List<Transform> firstRoute = new();
 
+    [SerializeField]
     int currentObjective = 0;
 
     // Start is called before the first frame update
