@@ -15,7 +15,7 @@ public class Stoplight : MonoBehaviour
     [SerializeField]
     Collider2D northWestLeft;
 
-    [Space, SerializeField, Header("North West Colliders")]
+    [Space, SerializeField, Header("South West Colliders")]
     Collider2D southWestBottom;
     [SerializeField]
     Collider2D southWestLeft;
@@ -59,11 +59,11 @@ public class Stoplight : MonoBehaviour
 
             image.sprite = ewGreen;
 
-            northWestLeft.enabled = true;
             northWestTop.enabled = true;
-            southEastRight.enabled = true;
             southEastBottom.enabled = true;
 
+            northWestLeft.enabled = false;
+            southEastRight.enabled = false;
             northEastRight.enabled = false;
             northEastTop.enabled = false;
             southWestLeft.enabled = false;
@@ -76,10 +76,10 @@ public class Stoplight : MonoBehaviour
             image.sprite = nsGreen;
 
             northEastRight.enabled = true;
-            northEastTop.enabled = true;
             southWestLeft.enabled = true;
-            southWestBottom.enabled = true;
 
+            northEastTop.enabled = false;
+            southWestBottom.enabled = false;
             northWestLeft.enabled = false;
             northWestTop.enabled = false;
             southEastRight.enabled = false;
