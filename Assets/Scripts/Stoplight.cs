@@ -41,10 +41,23 @@ public class Stoplight : MonoBehaviour
     AudioClip clip;
 
     AudioSource audioSrc;
+    float audiosrcvol;
     private void Start()
     {
         image = GetComponent<Image>();
         audioSrc = GetComponent<AudioSource>();
+
+        image.sprite = ewGreen;
+
+        northWestTop.enabled = true;
+        southEastBottom.enabled = true;
+
+        northWestLeft.enabled = false;
+        southEastRight.enabled = false;
+        northEastRight.enabled = false;
+        northEastTop.enabled = false;
+        southWestLeft.enabled = false;
+        southWestBottom.enabled = false;
     }
     public void FlipStopLight()
     {
