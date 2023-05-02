@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PauseScript : MonoBehaviour
@@ -14,6 +15,11 @@ public class PauseScript : MonoBehaviour
 
     Image image;
 
+    [Space, SerializeField, Header("paused UI Selection")]
+    GameObject uiSelection;
+
+    [Space, SerializeField, Header("resumed UI Selection")]
+    GameObject resumedUiSelection;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,11 +39,13 @@ public class PauseScript : MonoBehaviour
         {
             Time.timeScale = 0.0f;
             image.sprite = playingSprite;
+            EventSystem.current.SetSelectedGameObject(uiSelection);
         }
         else
         {
             Time.timeScale = 1.0f;
             image.sprite = pausedSprite;
+            EventSystem.current.SetSelectedGameObject(resumedUiSelection);
         }
         
     }
