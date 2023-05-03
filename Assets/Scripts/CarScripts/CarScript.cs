@@ -20,8 +20,7 @@ public class CarScript : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
 
-    [SerializeField]
-    List<Transform> route = new();
+    Route route;
 
     [SerializeField]
     int currentObjective = 0;
@@ -41,33 +40,35 @@ public class CarScript : MonoBehaviour
         Debug.DrawRay(transform.position, transform.right * raycastRange, Color.green);
 
         CheckIfInRangeToJunction();
-        directionToObjective = (route[currentObjective].position - transform.position).normalized;
+        directionToObjective = (route.GetWaypointAt(currentObjective).position - transform.position).normalized;
 
         transform.right = directionToObjective;
         if (ray.collider == null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, route[currentObjective].position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.deltaTime);
         }
     }
     void CheckIfInRangeToJunction()
     {
-        if (Vector2.Distance(transform.position, route[currentObjective].position) <= junctionRange)
+        if (Vector2.Distance(transform.position, route.GetWaypointAt(currentObjective).position) <= junctionRange)
         {
-            if (currentObjective == route.Count - 1)
+            if (currentObjective == route.GetNumberOfWaypoints() - 1)
             {
                 Destroy(gameObject);
             }
-            if (currentObjective != route.Count - 1)
+            if (currentObjective != route.GetNumberOfWaypoints() - 1)
             {
                 currentObjective++;
             }
         }
     }
-    public void AddToRouteList(List<Transform> waypoints)
+    public void SetRoute(Route route)
     {
-        route = waypoints;
+        this.route = route;
+        transform.position = route.GetWaypointAt(0).position;
+        currentObjective = 1;
     }
-    public void RandomSpeed()
+    public void SetRandomSpeed()
     {
         speed = Random.Range(minSpeed, maxSpeed);
     }
