@@ -28,7 +28,7 @@ public class StreetNameManager : MonoBehaviour
         Vector2 mouseWorldPos = cam.ScreenToWorldPoint(mousePosition);
 
         Collider2D[] roads = Physics2D.OverlapPointAll(mouseWorldPos, layerMask);
-
+        
         text.text = " ";
         if (roads != null)
         {

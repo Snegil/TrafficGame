@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CarScript : MonoBehaviour
@@ -27,6 +26,8 @@ public class CarScript : MonoBehaviour
     Vector2 directionToObjective;
 
     Transform child;
+
+    CarController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +35,10 @@ public class CarScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RaycastHit2D ray = Physics2D.Raycast(child.position, transform.right, raycastRange, layerMask);
-        Debug.DrawRay(transform.position, transform.right * raycastRange, Color.green);
+        Debug.DrawRay(child.position, transform.right * raycastRange, Color.green);
 
         CheckIfInRangeToJunction();
         directionToObjective = (route.GetWaypointAt(currentObjective).position - transform.position).normalized;
@@ -45,15 +46,17 @@ public class CarScript : MonoBehaviour
         transform.right = directionToObjective;
         if (ray.collider == null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.fixedDeltaTime);
         }
     }
     void CheckIfInRangeToJunction()
     {
         if (Vector2.Distance(transform.position, route.GetWaypointAt(currentObjective).position) <= junctionRange)
         {
+            transform.position = route.GetWaypointAt(currentObjective).position;
             if (currentObjective == route.GetNumberOfWaypoints() - 1)
             {
+                controller.RemoveInList(gameObject);
                 Destroy(gameObject);
             }
             if (currentObjective != route.GetNumberOfWaypoints() - 1)
@@ -71,5 +74,19 @@ public class CarScript : MonoBehaviour
     public void SetRandomSpeed()
     {
         speed = Random.Range(minSpeed, maxSpeed);
+    }
+    public List<Vector3> GetRemainingWaypoints()
+    {
+        List<Vector3> waypoints = new List<Vector3>();
+        waypoints.Add(transform.position);
+        for (int i = currentObjective; i < route.GetNumberOfWaypoints(); i++)
+        {
+            waypoints.Add(route.GetWaypointAt(i).position);
+        }
+        return waypoints;
+    }
+    public void ReferenceCarController(CarController controller)
+    {
+        this.controller = controller;
     }
 }

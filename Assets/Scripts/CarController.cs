@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    [SerializeField, Header("Maximum amount of cars.")]
+    int maxCarAmount;
+
     [Space, SerializeField, Header("Spawn Timer.")]
     float timer;
     float setTimer;
     [SerializeField]
     RouteManager routeManager;
 
+    [SerializeField]
+    Transform carParent;
+
     [Space, SerializeField, Header("Car Prefabs")]
     GameObject[] spawnObjects = new GameObject[3];
+
+    List<GameObject> spawnList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +35,23 @@ public class CarController : MonoBehaviour
 
         if (timer <= 0)
         {
-            timer = setTimer;
-            for (int i = 0; i < 3; i++)
+            if (spawnList.Count < maxCarAmount)
             {
-                GameObject instantiated = Instantiate(spawnObjects[i]);
-                CarScript carScript = instantiated.GetComponent<CarScript>();
-                carScript.SetRandomSpeed();
-                carScript.SetRoute(routeManager.GetRandomRoute());
+                for (int i = 0; i < 3; i++)
+                {
+                    GameObject instantiated = Instantiate(spawnObjects[i], carParent);
+                    spawnList.Add(instantiated);
+                    CarScript carScript = instantiated.GetComponent<CarScript>();
+                    carScript.ReferenceCarController(this);
+                    carScript.SetRandomSpeed();
+                    carScript.SetRoute(routeManager.GetRandomRoute());
+                }
             }
+            timer = setTimer;
         }
+    }
+    public void RemoveInList(GameObject gameObject)
+    {
+       spawnList.Remove(gameObject);
     }
 }

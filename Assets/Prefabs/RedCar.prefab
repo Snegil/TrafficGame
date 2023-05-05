@@ -102,11 +102,10 @@ MonoBehaviour:
   minSpeed: 5
   maxSpeed: 9
   raycastRange: 0.1
-  junctionRange: 0
+  junctionRange: 0.1
   layerMask:
     serializedVersion: 2
     m_Bits: 3712
-  route: []
   currentObjective: 0
 --- !u!61 &2634408880958029131
 BoxCollider2D:
