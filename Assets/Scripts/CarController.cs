@@ -13,7 +13,8 @@ public class CarController : MonoBehaviour
     float setTimer;
     [SerializeField]
     RouteManager routeManager;
-
+    [SerializeField]
+    ScoreKeeper scoreKeeper;
     [SerializeField]
     Transform carParent;
 
@@ -43,6 +44,7 @@ public class CarController : MonoBehaviour
                     spawnList.Add(instantiated);
                     CarScript carScript = instantiated.GetComponent<CarScript>();
                     carScript.ReferenceCarController(this);
+                    carScript.ReferenceScoreKeeper(scoreKeeper);
                     carScript.SetRandomSpeed();
                     carScript.SetRoute(routeManager.GetRandomRoute());
                 }

@@ -1,10 +1,17 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CarScript : MonoBehaviour
 {
+    [SerializeField]
+    float score;
+
+    [SerializeField]
+    float startTimer;
+    float setStartTimer;
+
     float speed;
 
     [SerializeField]
@@ -25,28 +32,47 @@ public class CarScript : MonoBehaviour
     int currentObjective = 0;
     Vector2 directionToObjective;
 
-    Transform child;
+    Transform firstChild;
+    Transform secondChild;
 
+    [SerializeField]
+    ScoreKeeper scoreKeeper;
     CarController controller;
+
     // Start is called before the first frame update
     void Start()
     {
-        child = gameObject.transform.GetChild(0).gameObject.transform;
+        firstChild = gameObject.transform.GetChild(0).gameObject.transform;
+        secondChild = gameObject.transform.GetChild(1).gameObject.transform;
+        setStartTimer = startTimer;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        RaycastHit2D ray = Physics2D.Raycast(child.position, transform.right, raycastRange, layerMask);
-        Debug.DrawRay(child.position, transform.right * raycastRange, Color.green);
+        RaycastHit2D rayOne = Physics2D.Raycast(firstChild.position, transform.right, raycastRange, layerMask);
+        RaycastHit2D rayTwo = Physics2D.Raycast(secondChild.position, transform.right, raycastRange, layerMask);
+
+        Debug.DrawRay(firstChild.position, transform.right * raycastRange, Color.green);
+        Debug.DrawRay(secondChild.position, transform.right * raycastRange, Color.green);
 
         CheckIfInRangeToJunction();
         directionToObjective = (route.GetWaypointAt(currentObjective).position - transform.position).normalized;
 
         transform.right = directionToObjective;
-        if (ray.collider == null)
+
+        if (rayOne.collider == null && rayTwo.collider == null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.fixedDeltaTime);
+            startTimer -= Time.deltaTime;
+            if (startTimer <= 0)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.fixedDeltaTime);
+            }
+        }
+
+        if (rayOne.collider != null && rayTwo.collider != null)
+        {
+            startTimer = setStartTimer;
         }
     }
     void CheckIfInRangeToJunction()
@@ -56,6 +82,7 @@ public class CarScript : MonoBehaviour
             transform.position = route.GetWaypointAt(currentObjective).position;
             if (currentObjective == route.GetNumberOfWaypoints() - 1)
             {
+                scoreKeeper.AddScore((int)score);
                 controller.RemoveInList(gameObject);
                 Destroy(gameObject);
             }
@@ -88,5 +115,9 @@ public class CarScript : MonoBehaviour
     public void ReferenceCarController(CarController controller)
     {
         this.controller = controller;
+    }
+    public void ReferenceScoreKeeper(ScoreKeeper scoreKeeper)
+    {
+        this.scoreKeeper = scoreKeeper;
     }
 }
