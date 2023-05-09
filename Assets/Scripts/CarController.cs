@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CarController : MonoBehaviour
 {
     [SerializeField, Header("Maximum amount of cars.")]
@@ -23,6 +23,9 @@ public class CarController : MonoBehaviour
 
     List<GameObject> spawnList = new List<GameObject>();
 
+    [Space, SerializeField, Header("Countdown to spawn.")]
+    Image clock;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,7 @@ public class CarController : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-
+        clock.fillAmount = timer / setTimer;
         if (timer <= 0)
         {
             if (spawnList.Count < maxCarAmount)
@@ -44,7 +47,6 @@ public class CarController : MonoBehaviour
                     spawnList.Add(instantiated);
                     CarScript carScript = instantiated.GetComponent<CarScript>();
                     carScript.ReferenceCarController(this);
-                    carScript.ReferenceScoreKeeper(scoreKeeper);
                     carScript.SetRandomSpeed();
                     carScript.SetRoute(routeManager.GetRandomRoute());
                 }

@@ -34,9 +34,6 @@ public class CarScript : MonoBehaviour
 
     Transform firstChild;
     Transform secondChild;
-
-    [SerializeField]
-    ScoreKeeper scoreKeeper;
     CarController controller;
 
     // Start is called before the first frame update
@@ -82,7 +79,6 @@ public class CarScript : MonoBehaviour
             transform.position = route.GetWaypointAt(currentObjective).position;
             if (currentObjective == route.GetNumberOfWaypoints() - 1)
             {
-                scoreKeeper.AddScore((int)score);
                 controller.RemoveInList(gameObject);
                 Destroy(gameObject);
             }
@@ -115,9 +111,5 @@ public class CarScript : MonoBehaviour
     public void ReferenceCarController(CarController controller)
     {
         this.controller = controller;
-    }
-    public void ReferenceScoreKeeper(ScoreKeeper scoreKeeper)
-    {
-        this.scoreKeeper = scoreKeeper;
     }
 }

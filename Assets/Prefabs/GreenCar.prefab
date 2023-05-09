@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529181664038884017}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.32, y: 0.187, z: -0.0009450305}
+  m_LocalPosition: {x: 0.392, y: 0.187, z: -0.0009450305}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: -0.025150906}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -142,7 +142,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3712
   currentObjective: 0
-  scoreKeeper: {fileID: 0}
 --- !u!61 &5117744311144700072
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +166,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.625, y: 0.375}
+  m_Size: {x: 0.75, y: 0.375}
   m_EdgeRadius: 0
 --- !u!50 &3441649392235482609
 Rigidbody2D:
@@ -214,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7719681450443406180}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.32, y: -0.187, z: -0.0009450305}
+  m_LocalPosition: {x: 0.392, y: -0.187, z: -0.0009450305}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: -0.025150906}
   m_ConstrainProportionsScale: 0
   m_Children: []
