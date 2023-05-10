@@ -26,6 +26,8 @@ public class CarController : MonoBehaviour
     [Space, SerializeField, Header("Countdown to spawn.")]
     Image clock;
 
+    bool reverseFill = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,10 +38,17 @@ public class CarController : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        clock.fillAmount = timer / setTimer;
+        if (reverseFill == true)
+        {
+            clock.fillAmount = timer / setTimer;
+        }
+        else if (reverseFill == false)
+        {
+            clock.fillAmount = 1 - (timer / setTimer);
+        }
         if (timer <= 0)
         {
-            if (spawnList.Count < maxCarAmount)
+            if (spawnList.Count < maxCarAmount && reverseFill == true)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -51,11 +60,16 @@ public class CarController : MonoBehaviour
                     carScript.SetRoute(routeManager.GetRandomRoute());
                 }
             }
+            reverseFill = !reverseFill;
             timer = setTimer;
         }
     }
     public void RemoveInList(GameObject gameObject)
     {
        spawnList.Remove(gameObject);
+    }
+    public float GetSpawnTimer
+    {
+        get { return timer; }
     }
 }

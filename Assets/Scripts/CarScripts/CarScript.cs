@@ -35,12 +35,22 @@ public class CarScript : MonoBehaviour
     Transform firstChild;
     Transform secondChild;
     CarController controller;
+    CarStandStill carStandStill;
+
+    [Space, SerializeField, Header("When the car has been standing still for too long.")]
+    float stillTimerThreshhold;
+
+    [SerializeField]
+    float stillTimer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        carStandStill = GetComponent<CarStandStill>();
+
         firstChild = gameObject.transform.GetChild(0).gameObject.transform;
         secondChild = gameObject.transform.GetChild(1).gameObject.transform;
+
         setStartTimer = startTimer;
     }
 
@@ -60,16 +70,23 @@ public class CarScript : MonoBehaviour
 
         if (rayOne.collider == null && rayTwo.collider == null)
         {
+            carStandStill.ChangeToOriginalColour();
             startTimer -= Time.deltaTime;
             if (startTimer <= 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, route.GetWaypointAt(currentObjective).position, speed * Time.fixedDeltaTime);
+                stillTimer = 0;
             }
         }
 
         if (rayOne.collider != null && rayTwo.collider != null)
         {
             startTimer = setStartTimer;
+            stillTimer += Time.deltaTime;
+        }
+        if (stillTimer >= stillTimerThreshhold)
+        {
+            carStandStill.ChangeColour();
         }
     }
     void CheckIfInRangeToJunction()
