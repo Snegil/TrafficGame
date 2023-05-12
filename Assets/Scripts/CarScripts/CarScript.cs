@@ -43,9 +43,12 @@ public class CarScript : MonoBehaviour
     [SerializeField]
     float stillTimer = 0;
 
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         carStandStill = GetComponent<CarStandStill>();
 
         firstChild = gameObject.transform.GetChild(0).gameObject.transform;
@@ -128,5 +131,12 @@ public class CarScript : MonoBehaviour
     public void ReferenceCarController(CarController controller)
     {
         this.controller = controller;
+    }
+    public void SelfDestruct()
+    {
+        Debug.Log("Self Destruct " + gameObject.name);
+        animator.SetBool("SelfDestruct", true);
+        Destroy(gameObject, 2f);
+        controller.RemoveInList(gameObject);
     }
 }

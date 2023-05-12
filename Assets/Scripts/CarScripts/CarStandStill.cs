@@ -11,13 +11,14 @@ public class CarStandStill : MonoBehaviour
 
     Color warningColour = new(255, 0, 0);
 
-    float timer = 2;
-
+    float timer = 0.25f;
+    float setTimer;
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColour = spriteRenderer.color;
+        setTimer = timer;
     }
     void FixedUpdate()
     {
@@ -35,7 +36,7 @@ public class CarStandStill : MonoBehaviour
             {
                 spriteRenderer.color = originalColour;
             }
-            timer = 2;
+            timer = setTimer;
         }
     }
     public void ChangeToOriginalColour()

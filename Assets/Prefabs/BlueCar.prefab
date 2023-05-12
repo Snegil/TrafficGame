@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2404542751401461194}
   - component: {fileID: 1646148081148161407}
   - component: {fileID: -135501337157027802}
+  - component: {fileID: -8616175449363532643}
   m_Layer: 11
   m_Name: BlueCar
   m_TagString: Car
@@ -150,7 +151,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.375}
+  m_Size: {x: 0.75, y: 0.39}
   m_EdgeRadius: 0
 --- !u!50 &-135501337157027802
 Rigidbody2D:
@@ -173,6 +174,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &-8616175449363532643
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461641637829069221}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: edbdec82b2da42e418d477ed61bde29c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4250407129041686195
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4250407129041686195}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.392, y: -0.187, z: -0.0009450305}
+  m_LocalPosition: {x: 0.38, y: -0.19, z: -0.0009450305}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: -0.025150906}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -228,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6234578685462620006}
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.392, y: 0.187, z: -0.0009450305}
+  m_LocalPosition: {x: 0.38, y: 0.19, z: -0.0009450305}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: -0.025150906}
   m_ConstrainProportionsScale: 0
   m_Children: []
