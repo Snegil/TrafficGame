@@ -22,6 +22,7 @@ public class PauseWithControls : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
+            Debug.Log("OLLE HATAR GÄSS");
             pauseScript.PauseGame();
         }
     }

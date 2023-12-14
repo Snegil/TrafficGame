@@ -38,7 +38,7 @@ public class StreetNameManager : MonoBehaviour
             }
             if (roads.Length == 2)
             {
-                text.text = "Korsningen av " + roads[0].name + " and " + roads[1].name;
+                text.text = "Korsningen av " + roads[0].name + " & " + roads[1].name;
             }
         }
     }

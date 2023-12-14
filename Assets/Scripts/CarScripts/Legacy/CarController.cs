@@ -12,8 +12,14 @@ public class CarController : MonoBehaviour
     [Space, SerializeField, Header("Spawn Timer.")]
     float timer;
     float setTimer;
+
     [SerializeField]
-    RouteManager routeManager;
+    AStarManager aStarManager;
+    //RouteManager routeManager;
+
+    [SerializeField]
+    List<AStarNode> endNodes;
+
     [SerializeField]
     ScoreKeeper scoreKeeper;
     [SerializeField]
@@ -31,6 +37,8 @@ public class CarController : MonoBehaviour
 
     [SerializeField]
     bool reverseFill = false;
+
+    CarScript carScript;
 
     // Start is called before the first frame update
     void Start()
@@ -61,10 +69,10 @@ public class CarController : MonoBehaviour
                 {
                     GameObject instantiated = Instantiate(spawnObjects[Random.Range(0, spawnObjects.Length)], carParent);
                     spawnList.Add(instantiated);
-                    CarScript carScript = instantiated.GetComponent<CarScript>();
+                    carScript = instantiated.GetComponent<CarScript>();
                     carScript.ReferenceCarController(this);
                     carScript.SetRandomSpeed();
-                    carScript.SetRoute(routeManager.GetRandomRoute());
+                    RandomRoute();
                 }
                 if (setTimer > 0.1f && amountToSpawn != maxCarAmount)
                 {
@@ -93,5 +101,22 @@ public class CarController : MonoBehaviour
             spawnList[i].GetComponent<CarScript>().SelfDestruct();
         }
         amountToSpawn = 1;
+    }
+    public void RandomRoute()
+    {
+        int randomNumber;
+        int randomNumber2;
+
+        randomNumber = Random.Range(0, endNodes.Count);
+        randomNumber2 = Random.Range(0, endNodes.Count);
+
+        while (randomNumber2 == randomNumber)
+        {
+            randomNumber2 = Random.Range(0, endNodes.Count);
+        }
+
+        //carScript.SetRoute(aStarManager.CalculateRoute(endNodes[randomNumber], endNodes[randomNumber2]));
+
+        return;
     }
 }

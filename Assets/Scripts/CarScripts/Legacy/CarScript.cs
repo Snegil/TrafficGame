@@ -87,10 +87,6 @@ public class CarScript : MonoBehaviour
             startTimer = setStartTimer;
             stillTimer += Time.deltaTime;
         }
-        if (stillTimer >= stillTimerThreshhold)
-        {
-            carStandStill.ChangeColour();
-        }
     }
     void CheckIfInRangeToJunction()
     {
